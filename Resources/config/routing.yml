@@ -1,0 +1,3 @@
+elastification_php_client_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: ElastificationPhpClientBundle:Default:index }

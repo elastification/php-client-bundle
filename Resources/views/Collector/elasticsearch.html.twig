@@ -1,0 +1,93 @@
+{% extends 'WebProfilerBundle:Profiler:layout.html.twig' %}
+
+{% block toolbar %}
+    {% set icon %}
+    <img width="28" alt="Elasticsearch" style="border-width: 0; vertical-align: middle; margin-right: 5px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAZCAMAAAAVHr4VAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiUAAICDAAD5/wAAgOkAAHUwAADqYAAAOpgAABdvkl/FRgAAAVNQTFRFAAAAdLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/////4SvSgAAAAG90Uk5TAAAEAQILhNqsEAMf9v5gNS0FZfioBtBWEen98iA++m1p/ME6e+vFKzDo++AWomxvpvmDTEAbEpXY3r73ross24bXzbYjlL2tCjtVeJtI9GYINzyIFfDOCYrhDhTEZwciSZ+JkQyY0fP1MT/CanFw5iQhUAAAAAFiS0dEcNgAbHQAAAAJcEhZcwAACxMAAAsTAQCanBgAAAGYSURBVCjPbVLpX1MxEOy8pIqxAeqzHlFbH4JIEaRylMOjCkUEjwIqRQ4vUEFg/v9vblJaefycD0k2s7Ob3U0m0wYEkVKyZs5CbK2hkL1wseuS7OdJwGhczll2w6Sl4tzTizyuMOZVFFKRve4ar+PGTTreui2JO6SPiDtksXSXibB997JQ/3SqgH4WnRugwDreH4RGO2GEB0O0NmFAmcMP0Q4shxHaIAqk4yiMMkZ7B+hHdK6lYmI9O+bLCWqUWLFtTigr62OMT0xmPTlVbaWzct81TZcUOTPLOT6ByWgMin9SLiesPH028NyrHeOYVWh5kKm98NGGX7I6Np9fqC+6Sky+8k32/Vl6vbzy5m12mu9m3zegVnvX1ruVRiCN76YU/qH+kfw0hWCGDoeDMVFktFYbTXIdBW+i0/4wNBXlUaPd/Hx+akIXGtjalndzB7uN9H8wWB768vVbrfn9x+he3z6is6TC0k9WfuVyud9zjA86c2mF1Tj80zw6Pjk+qm+XoFNh5T2dOZ3Wkf6BvgKBjOs//zMFf/cXzV5N9jbVTdkAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTQtMTItMTlUMTA6NDY6MTUtMDU6MDAyC+pAAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE0LTEyLTE5VDEwOjQ2OjE1LTA1OjAwQ1ZS/AAAAABJRU5ErkJggg=="/>
+    <span class="sf-toolbar-status{% if collector.count %} sf-toolbar-status-green{% endif %}">{{ collector.count }}</span>
+    {% endset %}
+    {% set text %}
+    <div class="sf-toolbar-info-piece">
+        <b>Queries</b>
+        <span>{{ collector.count }}</span>
+    </div>
+    <div class="sf-toolbar-info-piece">
+        <b>Query time</b>
+        <span>{{ '%0.2f'|format(collector.timetaken) }} ms</span>
+    </div>
+    {% endset %}
+    {% include 'WebProfilerBundle:Profiler:toolbar_item.html.twig' with { 'link': profiler_url } %}
+{% endblock %}
+
+{% block menu %}
+    <span class="label">
+    {#<span class="icon"><img width="30" src="{{ asset('bundles/elastificationphpclient/images/elasticsearch.png') }}" alt="Elasticsearch" /></span>#}
+    <span class="icon"><img width="28" alt="Elasticsearch" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAZCAMAAAAVHr4VAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiUAAICDAAD5/wAAgOkAAHUwAADqYAAAOpgAABdvkl/FRgAAAVNQTFRFAAAAdLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/////4SvSgAAAAG90Uk5TAAAEAQILhNqsEAMf9v5gNS0FZfioBtBWEen98iA++m1p/ME6e+vFKzDo++AWomxvpvmDTEAbEpXY3r73ross24bXzbYjlL2tCjtVeJtI9GYINzyIFfDOCYrhDhTEZwciSZ+JkQyY0fP1MT/CanFw5iQhUAAAAAFiS0dEcNgAbHQAAAAJcEhZcwAACxMAAAsTAQCanBgAAAGYSURBVCjPbVLpX1MxEOy8pIqxAeqzHlFbH4JIEaRylMOjCkUEjwIqRQ4vUEFg/v9vblJaefycD0k2s7Ob3U0m0wYEkVKyZs5CbK2hkL1wseuS7OdJwGhczll2w6Sl4tzTizyuMOZVFFKRve4ar+PGTTreui2JO6SPiDtksXSXibB997JQ/3SqgH4WnRugwDreH4RGO2GEB0O0NmFAmcMP0Q4shxHaIAqk4yiMMkZ7B+hHdK6lYmI9O+bLCWqUWLFtTigr62OMT0xmPTlVbaWzct81TZcUOTPLOT6ByWgMin9SLiesPH028NyrHeOYVWh5kKm98NGGX7I6Np9fqC+6Sky+8k32/Vl6vbzy5m12mu9m3zegVnvX1ruVRiCN76YU/qH+kfw0hWCGDoeDMVFktFYbTXIdBW+i0/4wNBXlUaPd/Hx+akIXGtjalndzB7uN9H8wWB768vVbrfn9x+he3z6is6TC0k9WfuVyud9zjA86c2mF1Tj80zw6Pjk+qm+XoFNh5T2dOZ3Wkf6BvgKBjOs//zMFf/cXzV5N9jbVTdkAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTQtMTItMTlUMTA6NDY6MTUtMDU6MDAyC+pAAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE0LTEyLTE5VDEwOjQ2OjE1LTA1OjAwQ1ZS/AAAAABJRU5ErkJggg=="/></span>
+    <strong>Elasticsearch</strong>
+    <span class="count">
+        <span>{{ collector.count }}</span>
+        <span>{{ '%0.0f'|format(collector.timetaken) }}  ms</span>
+    </span>
+</span>
+{% endblock %}
+
+{% block panel %}
+
+    {#<h2>Configs</h2>#}
+
+    {#<table>#}
+        {#<thead>#}
+        {#<tr>#}
+            {#<th>Connection Name</th>#}
+            {#<th>Host</th>#}
+            {#<th>Port</th>#}
+            {#<th>Database</th>#}
+            {#<th>PConnect</th>#}
+            {#<th>Connection Timeout</th>#}
+            {#<th>Logging</th>#}
+        {#</tr>#}
+        {#</thead>#}
+        {#<tbody>#}
+        {#{% for key, config in collector.configs %}#}
+            {#<tr>#}
+                {#<td>{{ key }}</td>#}
+                {#<td>{{ config.host }}</td>#}
+                {#<td>{{ config.port }}</td>#}
+                {#<td>{{ config.db }}</td>#}
+                {#<td>{% if config.pconnect is defined %}{{ config.pconnect }}{% else %}not set{% endif %}</td>#}
+                {#<td>{% if config.connection_timeout is defined %}{{ config.connection_timeout }} s{% else %}not set{% endif %}</td>#}
+                {#<td>{% if config.logging is defined %}{{ config.logging }}{% else %}not set{% endif %}</td>#}
+            {#</tr>#}
+        {#{% endfor %}#}
+        {#</tbody>#}
+    {#</table>#}
+
+
+    <h2>Queries</h2>
+
+    {% if not collector.count %}
+        <p><em>No commands.</em></p>
+    {% else %}
+        <table>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Command</th>
+                <th>Time</th>
+                {#<th>Connection</th>#}
+                <th>Log Type</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for key, query in collector.data %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ query.cmd }}</td>
+                    <td>{{ '%0.2f'|format(query.time_taken) }} ms</td>
+                    {#<td>{{ query.config.connection_name }}</td>#}
+                    <td>{{ query.log_type }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}
