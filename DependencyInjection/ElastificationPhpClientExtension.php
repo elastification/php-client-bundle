@@ -21,6 +21,8 @@ class ElastificationPhpClientExtension extends Extension
     const SERVICE_TRANSPORT_KEY = 'elastification_php_client.transport';
     const SERVICE_TRANSPORT_TYPE_KEY = 'elastification_php_client.transport.type';
     const SERVICE_CLIENT_KEY = 'elastification_php_client.client';
+    const SERVICE_CLIENT_LOGGER_KEY = 'elastification_php_client.logger';
+    const SERVICE_CLIENT_PROFILER_KEY = 'elastification_php_client.profiler';
 
     const ALIAS_CLIENT = 'elastification_php_client';
 

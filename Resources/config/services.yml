@@ -6,6 +6,7 @@ parameters:
     elastification_php_client.client.class: Elastification\Client\Client
     elastification_php_client.logger.class: Elastification\Client\LoggerClient
     elastification_php_client.datacollector.class: Elastification\Bundle\ElastificationPhpClientBundle\DataCollector\ElasticsearchDataCollector
+    elastification_php_client.profiler.class: Elastification\Bundle\ElastificationPhpClientBundle\Component\ProfilerClient
 
 services:
     elastification_php_client.requestmanager:
@@ -17,6 +18,13 @@ services:
          public: false
          tags:
              - { name: data_collector, template: ElastificationPhpClientBundle:Collector:elasticsearch, id: elasticsearch}
-#    elastification_php_client.example:
-#        class: Elastification\Bundle\ElastificationPhpClientBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+
+    elastification_php_client.logger:
+         class: "%elastification_php_client.logger.class%"
+         arguments: [@elastification_php_client.client, @logger]
+         public: false
+
+    elastification_php_client.profiler:
+         class: "%elastification_php_client.profiler.class%"
+         arguments: [@elastification_php_client, @elastification_php_client.datacollector]
+         public: false

@@ -20,74 +20,120 @@
 
 {% block menu %}
     <span class="label">
-    {#<span class="icon"><img width="30" src="{{ asset('bundles/elastificationphpclient/images/elasticsearch.png') }}" alt="Elasticsearch" /></span>#}
     <span class="icon"><img width="28" alt="Elasticsearch" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAZCAMAAAAVHr4VAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiUAAICDAAD5/wAAgOkAAHUwAADqYAAAOpgAABdvkl/FRgAAAVNQTFRFAAAAdLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/dLc/////4SvSgAAAAG90Uk5TAAAEAQILhNqsEAMf9v5gNS0FZfioBtBWEen98iA++m1p/ME6e+vFKzDo++AWomxvpvmDTEAbEpXY3r73ross24bXzbYjlL2tCjtVeJtI9GYINzyIFfDOCYrhDhTEZwciSZ+JkQyY0fP1MT/CanFw5iQhUAAAAAFiS0dEcNgAbHQAAAAJcEhZcwAACxMAAAsTAQCanBgAAAGYSURBVCjPbVLpX1MxEOy8pIqxAeqzHlFbH4JIEaRylMOjCkUEjwIqRQ4vUEFg/v9vblJaefycD0k2s7Ob3U0m0wYEkVKyZs5CbK2hkL1wseuS7OdJwGhczll2w6Sl4tzTizyuMOZVFFKRve4ar+PGTTreui2JO6SPiDtksXSXibB997JQ/3SqgH4WnRugwDreH4RGO2GEB0O0NmFAmcMP0Q4shxHaIAqk4yiMMkZ7B+hHdK6lYmI9O+bLCWqUWLFtTigr62OMT0xmPTlVbaWzct81TZcUOTPLOT6ByWgMin9SLiesPH028NyrHeOYVWh5kKm98NGGX7I6Np9fqC+6Sky+8k32/Vl6vbzy5m12mu9m3zegVnvX1ruVRiCN76YU/qH+kfw0hWCGDoeDMVFktFYbTXIdBW+i0/4wNBXlUaPd/Hx+akIXGtjalndzB7uN9H8wWB768vVbrfn9x+he3z6is6TC0k9WfuVyud9zjA86c2mF1Tj80zw6Pjk+qm+XoFNh5T2dOZ3Wkf6BvgKBjOs//zMFf/cXzV5N9jbVTdkAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTQtMTItMTlUMTA6NDY6MTUtMDU6MDAyC+pAAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE0LTEyLTE5VDEwOjQ2OjE1LTA1OjAwQ1ZS/AAAAABJRU5ErkJggg=="/></span>
     <strong>Elasticsearch</strong>
     <span class="count">
         <span>{{ collector.count }}</span>
-        <span>{{ '%0.0f'|format(collector.timetaken) }}  ms</span>
+        <span>{{ '%0.0f'|format(collector.timetaken) }} ms</span>
     </span>
 </span>
 {% endblock %}
 
 {% block panel %}
 
-    {#<h2>Configs</h2>#}
-
-    {#<table>#}
-        {#<thead>#}
-        {#<tr>#}
-            {#<th>Connection Name</th>#}
-            {#<th>Host</th>#}
-            {#<th>Port</th>#}
-            {#<th>Database</th>#}
-            {#<th>PConnect</th>#}
-            {#<th>Connection Timeout</th>#}
-            {#<th>Logging</th>#}
-        {#</tr>#}
-        {#</thead>#}
-        {#<tbody>#}
-        {#{% for key, config in collector.configs %}#}
-            {#<tr>#}
-                {#<td>{{ key }}</td>#}
-                {#<td>{{ config.host }}</td>#}
-                {#<td>{{ config.port }}</td>#}
-                {#<td>{{ config.db }}</td>#}
-                {#<td>{% if config.pconnect is defined %}{{ config.pconnect }}{% else %}not set{% endif %}</td>#}
-                {#<td>{% if config.connection_timeout is defined %}{{ config.connection_timeout }} s{% else %}not set{% endif %}</td>#}
-                {#<td>{% if config.logging is defined %}{{ config.logging }}{% else %}not set{% endif %}</td>#}
-            {#</tr>#}
-        {#{% endfor %}#}
-        {#</tbody>#}
-    {#</table>#}
-
-
     <h2>Queries</h2>
 
     {% if not collector.count %}
-        <p><em>No commands.</em></p>
+        <p><em>No queries.</em></p>
     {% else %}
         <table>
             <thead>
             <tr>
                 <th>#</th>
-                <th>Command</th>
+                <th>Status</th>
                 <th>Time</th>
-                {#<th>Connection</th>#}
-                <th>Log Type</th>
+                <th>RequestClass</th>
+                <th>Method</th>
+                <th>Index</th>
+                <th>Type</th>
+                <th>Action</th>
+                <th>ResponseClass</th>
+                <th>RequestBody</th>
+                <th>Response</th>
+                <th>Config</th>
             </tr>
             </thead>
             <tbody>
+
             {% for key, query in collector.data %}
                 <tr>
                     <td>{{ key }}</td>
-                    <td>{{ query.cmd }}</td>
-                    <td>{{ '%0.2f'|format(query.time_taken) }} ms</td>
-                    {#<td>{{ query.config.connection_name }}</td>#}
-                    <td>{{ query.log_type }}</td>
+                    <td{% if "error" ==  query.status %} style="color: red;"{% endif %}>{{ query.status }}</td>
+                    <td>{{ '%0.2f'|format(query.timeTaken) }} ms</td>
+                    <td>{{ query.requestClass }}</td>
+                    <td>{{ query.method }}</td>
+                    <td>{{ query.index }}</td>
+                    <td>{{ query.type }}</td>
+                    <td>{{ query.action }}</td>
+                    <td>{{ query.responseClass }}</td>
+                    <td>
+                        {% if query.bodyRaw and query.body is defined %}
+                            <a href="#" title="show raw request body" onclick="ElastificationProfilerJs.toggle('es-request-body-raw-{{ key }}')">Raw</a>
+                            | <a href="#" title="show nice formatted request body" onclick="ElastificationProfilerJs.toggle('es-request-body-nice-{{ key }}')">Nice</a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if query.response is defined %}
+                            <a href="#" title="show raw response" onclick="ElastificationProfilerJs.toggle('es-response-raw-{{ key }}')">Raw</a>
+                            | <a href="#" title="show nice formatted response" onclick="ElastificationProfilerJs.toggle('es-response-nice-{{ key }}')">Nice</a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="#" title="show Bundle config" onclick="ElastificationProfilerJs.toggle('es-config-{{ key }}')">Show</a>
+                    </td>
                 </tr>
+
+                <tr id="es-config-{{ key }}" style="display: none;">
+                    <td>Bundle Config</td>
+                    <td colspan="10">{{ dump(query.config) }}</td>
+                </tr>
+
+                {% if query.bodyRaw and query.body is defined %}
+                    <tr id="es-request-body-raw-{{ key }}" style="display: none;">
+                        <td>Raw Request Body</td>
+                        <td colspan="10">{{ dump(query.bodyRaw) }}</td>
+                    </tr>
+                    <tr id="es-request-body-nice-{{ key }}" style="display: none;">
+                        <td>Formatted Request Body</td>
+                        <td colspan="10">{{ dump(query.body) }}</td>
+                    </tr>
+                {% endif %}
+
+
+                {% if query.response is defined %}
+                    <tr id="es-response-raw-{{ key }}" style="display: none;">
+                        <td>Raw Response</td>
+                        <td colspan="10">{{ dump(query.responseRaw) }}</td>
+                    </tr>
+                    <tr id="es-response-nice-{{ key }}" style="display: none;">
+                        <td>Formatted Response</td>
+                        <td colspan="10">{{ dump(query.response) }}</td>
+                    </tr>
+                {% endif %}
+
             {% endfor %}
             </tbody>
         </table>
     {% endif %}
+
+    <script>/*<![CDATA[*/
+        ElastificationProfilerJs = (function() {
+            "use strict";
+
+            return {
+                toggle: function(elementId) {
+                    var el = document.getElementById(elementId);
+
+                    if('none' == el.style.display) {
+                        el.style.display = null;
+                    } else {
+                        el.style.display = 'none';
+                    }
+
+                    return this;
+                }
+            };
+        })();
+    /*]]>*/</script>
+
 {% endblock %}

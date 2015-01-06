@@ -39,8 +39,5 @@ class ClientCompilerPass implements CompilerPassInterface
         $container->setAlias(
             ElastificationPhpClientExtension::ALIAS_CLIENT,
             ElastificationPhpClientExtension::SERVICE_CLIENT_KEY);
-
-//        var_dump($container->getDefinition(ElastificationPhpClientExtension::SERVICE_CLIENT_KEY));
-//        die();
     }
 }

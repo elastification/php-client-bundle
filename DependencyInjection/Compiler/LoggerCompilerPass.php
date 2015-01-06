@@ -8,6 +8,7 @@
 
 namespace Elastification\Bundle\ElastificationPhpClientBundle\DependencyInjection\Compiler;
 
+use Elastification\Bundle\ElastificationPhpClientBundle\DependencyInjection\ElastificationPhpClientExtension;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -23,6 +24,17 @@ class LoggerCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        // TODO: Implement process() method.
+        $config = $container->getParameter(ElastificationPhpClientExtension::PARAMETER_CONFIG_KEY);
+
+        if(true === $config['logging_enabled']) {
+
+            $container->setAlias(
+                ElastificationPhpClientExtension::ALIAS_CLIENT,
+                ElastificationPhpClientExtension::SERVICE_CLIENT_LOGGER_KEY);
+
+
+        } else {
+            $container->removeDefinition(ElastificationPhpClientExtension::SERVICE_CLIENT_LOGGER_KEY);
+        }
     }
 }
