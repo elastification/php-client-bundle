@@ -26,7 +26,7 @@
     "psr-0": { "Elastification\\Bundle\\ElastificationPhpClientBundle": "" }
   },
   "target-dir": "Elastification/Bundle/ElastificationPhpClientBundle",
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
   "suggest": {
     "munkie/elasticsearch-thrift-php": "Needed for thrift transport",
     "guzzlehttp/guzzle": "Needed for HttpGuzzle transport",
