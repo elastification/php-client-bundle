@@ -15,7 +15,7 @@
     "php": ">=5.4.10",
     "symfony/framework-bundle": ">=2.1,<3.0",
     "symfony/yaml": ">=2.1,<3.0",
-    "elastification/php-client": "@dev"
+    "elastification/php-client": "<1.0"
   },
   "require-dev": {
     "munkie/elasticsearch-thrift-php": "~1.4",
