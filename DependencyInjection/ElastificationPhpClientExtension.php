@@ -2,6 +2,8 @@
 
 namespace Elastification\Bundle\ElastificationPhpClientBundle\DependencyInjection;
 
+use Elastification\Client\ClientVersionMap;
+use Elastification\Client\ClientVersionMapInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -23,6 +25,7 @@ class ElastificationPhpClientExtension extends Extension
     const SERVICE_CLIENT_KEY = 'elastification_php_client.client';
     const SERVICE_CLIENT_LOGGER_KEY = 'elastification_php_client.logger';
     const SERVICE_CLIENT_PROFILER_KEY = 'elastification_php_client.profiler';
+    const SERVICE_REPOSITORY_CLASSMAP = 'elastification_php_client.repository.classmap';
 
     const ALIAS_CLIENT = 'elastification_php_client';
 
@@ -36,6 +39,13 @@ class ElastificationPhpClientExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        if(null === $config['elasticsearch_version']) {
+            $config['elasticsearch_version'] = ClientVersionMapInterface::VERSION_CURRENT;
+        } else {
+            $versionMap = new ClientVersionMap();
+            $config['elasticsearch_version'] = $versionMap->getVersion($config['elasticsearch_version']);
+        }
 
         $container->setParameter(self::PARAMETER_CONFIG_KEY, $config);
     }

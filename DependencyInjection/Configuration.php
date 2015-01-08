@@ -43,6 +43,14 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue('http')
                 ->end()
 
+                ->scalarNode('elasticsearch_version')
+                    ->defaultNull()
+                ->end()
+
+                ->scalarNode('repository_serializer_dic_id')
+                    ->defaultNull()
+                ->end()
+
                 ->booleanNode('logging_enabled')
                     ->defaultValue('%kernel.debug%')
                 ->end()

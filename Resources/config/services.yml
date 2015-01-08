@@ -3,10 +3,15 @@ parameters:
     elastification_php_client.transport.http.class: Elastification\Client\Transport\HttpGuzzle\GuzzleTransport
     elastification_php_client.transport.thrift.class: Elastification\Client\Transport\Thrift\ThriftTransport
     elastification_php_client.requestmanager.class: Elastification\Client\Request\RequestManager
+    elastification_php_client.serializer.native.class: Elastification\Client\Serializer\NativeJsonSerializer
+    elastification_php_client.serializer.jms.class: Elastification\Client\Serializer\JmsSerializer
     elastification_php_client.client.class: Elastification\Client\Client
     elastification_php_client.logger.class: Elastification\Client\LoggerClient
+    elastification_php_client.repository.document.class: Elastification\Client\Repository\DocumentRepository
+    elastification_php_client.repository.classmap.class: Elastification\Client\Repository\RepositoryClassMap
     elastification_php_client.datacollector.class: Elastification\Bundle\ElastificationPhpClientBundle\DataCollector\ElasticsearchDataCollector
     elastification_php_client.profiler.class: Elastification\Bundle\ElastificationPhpClientBundle\Component\ProfilerClient
+
 
 services:
     elastification_php_client.requestmanager:
@@ -28,3 +33,17 @@ services:
          class: "%elastification_php_client.profiler.class%"
          arguments: [@elastification_php_client, @elastification_php_client.datacollector]
          public: false
+
+    elastification_php_client.serializer.native:
+         class: "%elastification_php_client.serializer.native.class%"
+         public: true
+
+    #elastification_php_client.serializer.jms:
+    #     class: "%elastification_php_client.serializer.jms.class%"
+    #     arguments: [@jms_serializer, @elastification_php_client.datacollector]
+    #     public: true
+
+    elastification_php_client.repository.document:
+         class: "%elastification_php_client.repository.document.class%"
+         arguments: [@elastification_php_client, @elastification_php_client.serializer.native]
+         public: true
