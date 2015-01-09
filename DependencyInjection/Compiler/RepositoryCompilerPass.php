@@ -30,6 +30,7 @@ class RepositoryCompilerPass implements CompilerPassInterface
 
         $classMapDef = $this->createClassMapDefinition($container, $config);
         $this->modifyDocumentDefinition($container, $config, $classMapDef);
+        $this->modifySearchDefinition($container, $config, $classMapDef);
     }
 
     /**
@@ -70,5 +71,25 @@ class RepositoryCompilerPass implements CompilerPassInterface
         }
 
         $documentDef->addArgument($classMapDef);
+    }
+
+    /**
+     * modifies the arguments of the search repository service definition
+     *
+     * @param ContainerBuilder $container
+     * @param array $config
+     * @param Definition $classMapDef
+     * @author Daniel Wendlandt
+     */
+    private function modifySearchDefinition(ContainerBuilder $container, array $config, Definition $classMapDef)
+    {
+        $searchDef = $container->getDefinition('elastification_php_client.repository.search');
+
+        if(null !== $config['repository_serializer_dic_id']) {
+            $serializerDef = $container->getDefinition($config['repository_serializer_dic_id']);
+            $searchDef->replaceArgument(1, $serializerDef);
+        }
+
+        $searchDef->addArgument($classMapDef);
     }
 }

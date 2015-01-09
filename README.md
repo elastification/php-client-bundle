@@ -58,6 +58,7 @@ Native Serializer Service Id: **elastification_php_client.serializer.native**
 
 ### Repositories
 Document Repository Serivce Id: **elastification_php_client.repository.document**
+Search Repository Serivce Id: **elastification_php_client.repository.search**
 
 ### Tagged request
 If you want to register request services you can tag them with: **elastification_php_client.request**
@@ -73,19 +74,41 @@ If you want to register request services you can tag them with: **elastification
 ---
 ## Examples
 
-### Example for Document repository
+For all examples should create some sample data in your elasticsearch.
+ 
+### Example for Search Repository
 
-gets an document by id.
+Performs a simple search.
+This code is an example that can be performed within an action of a controller.
+
+    /** @var SearchRepositoryInterface $searchRepo */
+    $searchRepo = $this->get('elastification_php_client.repository.search');
+    
+    $query = array(
+        'query' => array(
+            'term' => array(
+                'country' => array(
+                    'value' => 'germany'
+                )
+            )
+        )
+    );
+    
+    $searchRepo->search('my-index', 'my-type', $query);
+    var_dump($response->getHits());
+    
+### Example for Document Repository
+
+Gets a single document by id.
 This code is an example that can be performed within an action of a controller.
 
     /** @var DocumentRepositoryInterface $docRepo */
     $docRepo = $this->get('elastification_php_client.repository.document');
 
-    var_dump($docRepo->get('my-index', 'my-type', '1107802-001-EN-33'));
+    var_dump($docRepo->get('my-index', 'my-type', 'yourDocumentId'));
 
 ### Example for simple search query with native serializer and no preconfigured requests
 
-create an index and type in your elasticsearch and add some sample data in there.
 This code is an example that can be performed within an action of a controller.
 
     /** @var Client $client */
@@ -103,7 +126,7 @@ Here is an example of a tagged request as service. The id parameter is optional.
 If the config parameter replace_version_of_tagged_requests is set to true. All registered requests will be parsed and set to the configured version.
 
     request.getdocument:
-        class: "Elastification\Client\Request\V090x\GetDocumentRequest"
+        class: "Elastification\Client\Request\V090x\GetDocumentRequest"g
         arguments: ["my-index", "my-type", @elastification_php_client.serializer.native]
         public: false
         tags:
@@ -113,7 +136,7 @@ Using a registered request and perform a request.
 This code is an example that can be performed within an action of a controller.
 
     $request = $client->getRequest('get.service.text');
-    $request->setId('1107802-001-EN-33');
+    $request->setId('yourDocumentId');
     $response = $client->send($request);
     var_dump($response->getData()->getGatewayValue());
  
@@ -125,5 +148,6 @@ This code is an example that can be performed within an action of a controller.
 - [x] create version for bundle
 - [] implement thrift config
 - [] create jms serializer services
-- [] create services for repository
-- [] php-client enable/disable response (debug) output
+- [x] create services for document repository
+- [x] create services for search repository
+- [] php-client enable/disable response (debug) output ?

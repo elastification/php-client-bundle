@@ -8,6 +8,7 @@ parameters:
     elastification_php_client.client.class: Elastification\Client\Client
     elastification_php_client.logger.class: Elastification\Client\LoggerClient
     elastification_php_client.repository.document.class: Elastification\Client\Repository\DocumentRepository
+    elastification_php_client.repository.search.class: Elastification\Client\Repository\SearchRepository
     elastification_php_client.repository.classmap.class: Elastification\Client\Repository\RepositoryClassMap
     elastification_php_client.datacollector.class: Elastification\Bundle\ElastificationPhpClientBundle\DataCollector\ElasticsearchDataCollector
     elastification_php_client.profiler.class: Elastification\Bundle\ElastificationPhpClientBundle\Component\ProfilerClient
@@ -48,13 +49,7 @@ services:
          arguments: [@elastification_php_client, @elastification_php_client.serializer.native]
          public: true
 
-
-
-#### dont forget to remove from here #####
-
-    request.getdocument:
-        class: "Elastification\Client\Request\V090x\GetDocumentRequest"
-        arguments: ["ank-develop-service", "text", @elastification_php_client.serializer.native]
-        public: false
-        tags:
-          - { name: elastification_php_client.request, id: get.service.text }
+    elastification_php_client.repository.search:
+         class: "%elastification_php_client.repository.search.class%"
+         arguments: [@elastification_php_client, @elastification_php_client.serializer.native]
+         public: true
