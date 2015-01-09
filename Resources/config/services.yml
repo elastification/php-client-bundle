@@ -4,7 +4,7 @@ parameters:
     elastification_php_client.transport.thrift.class: Elastification\Client\Transport\Thrift\ThriftTransport
     elastification_php_client.requestmanager.class: Elastification\Client\Request\RequestManager
     elastification_php_client.serializer.native.class: Elastification\Client\Serializer\NativeJsonSerializer
-    elastification_php_client.serializer.jms.class: Elastification\Client\Serializer\JmsSerializer
+
     elastification_php_client.client.class: Elastification\Client\Client
     elastification_php_client.logger.class: Elastification\Client\LoggerClient
     elastification_php_client.repository.document.class: Elastification\Client\Repository\DocumentRepository
@@ -12,6 +12,13 @@ parameters:
     elastification_php_client.repository.classmap.class: Elastification\Client\Repository\RepositoryClassMap
     elastification_php_client.datacollector.class: Elastification\Bundle\ElastificationPhpClientBundle\DataCollector\ElasticsearchDataCollector
     elastification_php_client.profiler.class: Elastification\Bundle\ElastificationPhpClientBundle\Component\ProfilerClient
+
+
+    #jms
+    elastification_php_client.serializer.jms.class: Elastification\Client\Serializer\JmsSerializer
+    elastification_php_client.serializer.jms.sourcesubscribinghandler.class: Elastification\Client\Serializer\JmsSerializer\SourceSubscribingHandler
+    elastification_php_client.serializer.jms.deserialization.search.class: Elastification\Client\Serializer\JmsSerializer\SearchResponseEntity
+#    elastification_php_client.serializer.jms.deserialization.search.class: Elastification\Client\Serializer\JmsSerializer\SearchResponseEntity
 
 
 services:
@@ -35,14 +42,19 @@ services:
          arguments: [@elastification_php_client, @elastification_php_client.datacollector]
          public: false
 
+    elastification_php_client.serializer.jms.sourcesubscribing:
+         class: "%elastification_php_client.serializer.jms.sourcesubscribinghandler.class%"
+         arguments: [%elastification_php_client.serializer.jms.deserialization.search.class%]
+         public: false
+
+    elastification_php_client.serializer.jms.prototype:
+         class: "%elastification_php_client.serializer.jms.class%"
+         arguments: [@jms_serializer]
+         public: false
+
     elastification_php_client.serializer.native:
          class: "%elastification_php_client.serializer.native.class%"
          public: true
-
-    #elastification_php_client.serializer.jms:
-    #     class: "%elastification_php_client.serializer.jms.class%"
-    #     arguments: [@jms_serializer, @elastification_php_client.datacollector]
-    #     public: true
 
     elastification_php_client.repository.document:
          class: "%elastification_php_client.repository.document.class%"
@@ -53,3 +65,13 @@ services:
          class: "%elastification_php_client.repository.search.class%"
          arguments: [@elastification_php_client, @elastification_php_client.serializer.native]
          public: true
+
+
+#### dont forget to remove from here #####
+
+    request.getdocument:
+        class: "Elastification\Client\Request\V090x\SearchRequest"
+        arguments: ["ank-develop-service", "text", @elastification_php_client.serializer.jms.search]
+        public: false
+        tags:
+          - { name: elastification_php_client.request, id: search.service.text }

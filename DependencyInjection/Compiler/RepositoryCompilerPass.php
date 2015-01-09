@@ -12,6 +12,7 @@ use Elastification\Bundle\ElastificationPhpClientBundle\DependencyInjection\Elas
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\Validator\Tests\Fixtures\Reference;
 
 class RepositoryCompilerPass implements CompilerPassInterface
 {
@@ -66,8 +67,7 @@ class RepositoryCompilerPass implements CompilerPassInterface
         $documentDef = $container->getDefinition('elastification_php_client.repository.document');
 
         if(null !== $config['repository_serializer_dic_id']) {
-            $serializerDef = $container->getDefinition($config['repository_serializer_dic_id']);
-            $documentDef->replaceArgument(1, $serializerDef);
+            $documentDef->replaceArgument(1, new Reference($config['repository_serializer_dic_id']));
         }
 
         $documentDef->addArgument($classMapDef);
@@ -86,8 +86,7 @@ class RepositoryCompilerPass implements CompilerPassInterface
         $searchDef = $container->getDefinition('elastification_php_client.repository.search');
 
         if(null !== $config['repository_serializer_dic_id']) {
-            $serializerDef = $container->getDefinition($config['repository_serializer_dic_id']);
-            $searchDef->replaceArgument(1, $serializerDef);
+            $searchDef->replaceArgument(1, new Reference($config['repository_serializer_dic_id']));
         }
 
         $searchDef->addArgument($classMapDef);

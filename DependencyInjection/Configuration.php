@@ -3,6 +3,7 @@
 namespace Elastification\Bundle\ElastificationPhpClientBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -20,7 +21,6 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('elastification_php_client');
-
 
         $this->addSection($rootNode);
 
@@ -66,6 +66,24 @@ class Configuration implements ConfigurationInterface
                 ->booleanNode('profiler_enabled')
                     ->defaultValue(true)
                 ->end()
+
+                ->arrayNode('jms_serializer_class_map')
+                    ->canBeUnset()
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('index')
+                                ->isRequired()
+                            ->end()
+                            ->scalarNode('type')
+                                ->isRequired()
+                            ->end()
+                            ->scalarNode('class')
+                                ->isRequired()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+
             ->end()
         ->end();
     }

@@ -46,6 +46,8 @@ In your app/config.yml or environment based you can add params (full config exam
       replace_version_of_tagged_requests: true #default: false
       logging_enabled: true
       profiler_enabled: true
+      jms_serializer_class_map:
+          - {index: my-index, type: my-type, class: AppBundle\Entity\MyEntity}
       
 ---
 
@@ -55,6 +57,7 @@ The registered DIC service id for the client is **elastification_php_client**
 
 ### Serializers
 Native Serializer Service Id: **elastification_php_client.serializer.native**
+Missing in document is jms serializer stuff
 
 ### Repositories
 Document Repository Serivce Id: **elastification_php_client.repository.document**
@@ -150,4 +153,7 @@ This code is an example that can be performed within an action of a controller.
 - [] create jms serializer services
 - [x] create services for document repository
 - [x] create services for search repository
+- [] create jms serializer service if jms serializer is available
+- [] client lib: create jms document entity
+- [] create document jms serializer service
 - [] php-client enable/disable response (debug) output ?
