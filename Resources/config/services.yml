@@ -47,3 +47,14 @@ services:
          class: "%elastification_php_client.repository.document.class%"
          arguments: [@elastification_php_client, @elastification_php_client.serializer.native]
          public: true
+
+
+
+#### dont forget to remove from here #####
+
+    request.getdocument:
+        class: "Elastification\Client\Request\V090x\GetDocumentRequest"
+        arguments: ["ank-develop-service", "text", @elastification_php_client.serializer.native]
+        public: false
+        tags:
+          - { name: elastification_php_client.request, id: get.service.text }

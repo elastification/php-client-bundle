@@ -32,6 +32,14 @@ class RepositoryCompilerPass implements CompilerPassInterface
         $this->modifyDocumentDefinition($container, $config, $classMapDef);
     }
 
+    /**
+     * creates and registeres a classmap service definition
+     *
+     * @param ContainerBuilder $container
+     * @param array $config
+     * @return Definition
+     * @author Daniel Wendlandt
+     */
     private function createClassMapDefinition(ContainerBuilder $container, array $config)
     {
         $classMapDef = new Definition();
@@ -44,6 +52,14 @@ class RepositoryCompilerPass implements CompilerPassInterface
         return $classMapDef;
     }
 
+    /**
+     * modifies the arguments of the document repository service definition
+     *
+     * @param ContainerBuilder $container
+     * @param array $config
+     * @param Definition $classMapDef
+     * @author Daniel Wendlandt
+     */
     private function modifyDocumentDefinition(ContainerBuilder $container, array $config, Definition $classMapDef)
     {
         $documentDef = $container->getDefinition('elastification_php_client.repository.document');

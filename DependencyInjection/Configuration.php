@@ -51,6 +51,10 @@ class Configuration implements ConfigurationInterface
                     ->defaultNull()
                 ->end()
 
+                ->booleanNode('replace_version_of_tagged_requests')
+                    ->defaultValue(false)
+                ->end()
+
                 ->booleanNode('logging_enabled')
                     ->defaultValue('%kernel.debug%')
                 ->end()

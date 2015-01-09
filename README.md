@@ -43,6 +43,7 @@ In your app/config.yml or environment based you can add params (full config exam
       protocol: http # http/thrift
       elasticsearch_version: 1.4.1
       repository_serializer_dic_id: elastification_php_client.serializer.native #default: elastification_php_client.serializer.native
+      replace_version_of_tagged_requests: true #default: false
       logging_enabled: true
       profiler_enabled: true
       
@@ -53,10 +54,13 @@ In your app/config.yml or environment based you can add params (full config exam
 The registered DIC service id for the client is **elastification_php_client**
 
 ### Serializers
-Native Serializer Service Id: elastification_php_client.serializer.native
+Native Serializer Service Id: **elastification_php_client.serializer.native**
 
 ### Repositories
-Document Repository Serivce Id: elastification_php_client.repository.document
+Document Repository Serivce Id: **elastification_php_client.repository.document**
+
+### Tagged request
+If you want to register request services you can tag them with: **elastification_php_client.request**
 
 ---
 
@@ -93,6 +97,26 @@ This code is an example that can be performed within an action of a controller.
     var_dump($response->getData()->getGatewayValue());
     //for grabbing into the result do: $response->getData()['hits']
 
+### Example for tagging request services and using the request manager
+ 
+Here is an example of a tagged request as service. The id parameter is optional. If this is not set, the request service id will be used.
+If the config parameter replace_version_of_tagged_requests is set to true. All registered requests will be parsed and set to the configured version.
+
+    request.getdocument:
+        class: "Elastification\Client\Request\V090x\GetDocumentRequest"
+        arguments: ["my-index", "my-type", @elastification_php_client.serializer.native]
+        public: false
+        tags:
+          - { name: elastification_php_client.request, id: get.service.text }
+          
+Using a registered request and perform a request.
+This code is an example that can be performed within an action of a controller.
+
+    $request = $client->getRequest('get.service.text');
+    $request->setId('1107802-001-EN-33');
+    $response = $client->send($request);
+    var_dump($response->getData()->getGatewayValue());
+ 
 ---
 
 ## ToDo
