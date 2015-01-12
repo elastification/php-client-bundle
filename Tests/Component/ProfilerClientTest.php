@@ -88,7 +88,6 @@ class ProfilerClientTest extends \PHPUnit_Framework_TestCase
     public function testSendException()
     {
         $request = $this->getMockBuilder('Elastification\Client\Request\RequestInterface')->getMock();
-        $response = $this->getMockBuilder('Elastification\Client\Response\ResponseInterface')->getMock();
 
         $this->dataCollector
             ->expects($this->once())
@@ -108,6 +107,7 @@ class ProfilerClientTest extends \PHPUnit_Framework_TestCase
             ->willThrowException($exception);
 
         try {
+
             $this->profilerClient->send($request);
 
         } catch(ClientException $clientException) {
