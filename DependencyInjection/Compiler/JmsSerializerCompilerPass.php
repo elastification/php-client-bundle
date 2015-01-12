@@ -11,7 +11,6 @@ namespace Elastification\Bundle\ElastificationPhpClientBundle\DependencyInjectio
 use Elastification\Bundle\ElastificationPhpClientBundle\DependencyInjection\ElastificationPhpClientExtension;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 class JmsSerializerCompilerPass implements CompilerPassInterface
@@ -31,11 +30,15 @@ class JmsSerializerCompilerPass implements CompilerPassInterface
 
             $container
                 ->getDefinition('jms_serializer.handler_registry')
-                ->addMethodCall('registerSubscribingHandler', array(new Reference('elastification_php_client.serializer.jms.sourcesubscribing')));
+                ->addMethodCall(
+                    'registerSubscribingHandler',
+                    array(new Reference('elastification_php_client.serializer.jms.sourcesubscribing')));
 
             $classMap = $this->formatClassMap($config);
 
             $this->createSerializer($container, $classMap, 'search');
+            $this->createSerializer($container, $classMap, 'document');
+
 
 
         } else {
@@ -88,6 +91,9 @@ class JmsSerializerCompilerPass implements CompilerPassInterface
         $serializerDef->setPublic(true);
         $serializerDef->addArgument(new Reference('elastification_php_client.serializer.jms.sourcesubscribing'));
         $serializerDef->addArgument($classMap);
+
+        $derserializationName = 'elastification_php_client.serializer.jms.deserialization.' . $name . '.class';
+        $serializerDef->addMethodCall('setDeserializerClass', array($container->getParameter($derserializationName)));
 
         $container->setDefinition('elastification_php_client.serializer.jms.' . $name, $serializerDef);
     }

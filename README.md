@@ -57,7 +57,8 @@ The registered DIC service id for the client is **elastification_php_client**
 
 ### Serializers
 Native Serializer Service Id: **elastification_php_client.serializer.native**
-Missing in document is jms serializer stuff
+Jms Serializer Search Service Id: **elastification_php_client.serializer.jms.search**
+Jms Serializer Document Service Id: **elastification_php_client.serializer.jms.document**
 
 ### Repositories
 Document Repository Serivce Id: **elastification_php_client.repository.document**

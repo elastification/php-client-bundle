@@ -18,7 +18,7 @@ parameters:
     elastification_php_client.serializer.jms.class: Elastification\Client\Serializer\JmsSerializer
     elastification_php_client.serializer.jms.sourcesubscribinghandler.class: Elastification\Client\Serializer\JmsSerializer\SourceSubscribingHandler
     elastification_php_client.serializer.jms.deserialization.search.class: Elastification\Client\Serializer\JmsSerializer\SearchResponseEntity
-#    elastification_php_client.serializer.jms.deserialization.search.class: Elastification\Client\Serializer\JmsSerializer\SearchResponseEntity
+    elastification_php_client.serializer.jms.deserialization.document.class: Elastification\Client\Serializer\JmsSerializer\DocumentResponseEntity
 
 
 services:
@@ -69,9 +69,16 @@ services:
 
 #### dont forget to remove from here #####
 
-    request.getdocument:
+    request.search:
         class: "Elastification\Client\Request\V090x\SearchRequest"
         arguments: ["ank-develop-service", "text", @elastification_php_client.serializer.jms.search]
         public: false
         tags:
           - { name: elastification_php_client.request, id: search.service.text }
+
+    request.getdocument:
+        class: "Elastification\Client\Request\V090x\GetDocumentRequest"
+        arguments: ["ank-develop-service", "text", @elastification_php_client.serializer.jms.document]
+        public: false
+        tags:
+          - { name: elastification_php_client.request, id: get.service.text }
