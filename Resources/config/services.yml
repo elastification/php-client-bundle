@@ -65,20 +65,3 @@ services:
          class: "%elastification_php_client.repository.search.class%"
          arguments: [@elastification_php_client, @elastification_php_client.serializer.native]
          public: true
-
-
-#### dont forget to remove from here #####
-
-    request.search:
-        class: "Elastification\Client\Request\V090x\SearchRequest"
-        arguments: ["ank-develop-service", "text", @elastification_php_client.serializer.jms.search]
-        public: false
-        tags:
-          - { name: elastification_php_client.request, id: search.service.text }
-
-    request.getdocument:
-        class: "Elastification\Client\Request\V090x\GetDocumentRequest"
-        arguments: ["ank-develop-service", "text", @elastification_php_client.serializer.jms.document]
-        public: false
-        tags:
-          - { name: elastification_php_client.request, id: get.service.text }

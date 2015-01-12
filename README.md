@@ -11,7 +11,7 @@ Here is the configuration section for using the bundle
 
 Required in *composer.json*
     
-   ```"elastification/php-client-bundle": "dev-master"```
+   ```"elastification/php-client-bundle": "<1.0"```
    
    
 You have choose the right package for your transport. If you do not have installed thrift you should use guzzle
