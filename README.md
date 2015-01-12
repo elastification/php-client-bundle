@@ -1,4 +1,5 @@
 # Elastification Php Client Bundle
+[![Build Status](https://travis-ci.org/elastification/php-client.svg?branch=master)](https://travis-ci.org/elastification/php-client-bundle)
 
 ---
 
@@ -151,10 +152,10 @@ This code is an example that can be performed within an action of a controller.
 - [x] create version for lib (0.1.0)
 - [x] create version for bundle
 - [] implement thrift config
-- [] create jms serializer services
+- [x] create jms serializer services
 - [x] create services for document repository
 - [x] create services for search repository
-- [] create jms serializer service if jms serializer is available
-- [] client lib: create jms document entity
-- [] create document jms serializer service
+- [x] create jms serializer service if jms serializer is available
+- [x] client lib: create jms document entity
+- [x] create document jms serializer service
 - [] php-client enable/disable response (debug) output ?
