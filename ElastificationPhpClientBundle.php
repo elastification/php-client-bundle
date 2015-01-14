@@ -24,7 +24,7 @@ class ElastificationPhpClientBundle extends Bundle
 
         $container->addCompilerPass(new TransportCompilerPass());
         $container->addCompilerPass(new JmsSerializerCompilerPass());
-        $container->addCompilerPass(new RequestCompilerPass());
+        $container->addCompilerPass(new RequestCompilerPass(), PassConfig::TYPE_OPTIMIZE);
         $container->addCompilerPass(new ClientCompilerPass());
         $container->addCompilerPass(new LoggerCompilerPass());
         $container->addCompilerPass(new ProfilerCompilerPass());
