@@ -10,6 +10,7 @@ use Elastification\Bundle\ElastificationPhpClientBundle\DependencyInjection\Comp
 use Elastification\Bundle\ElastificationPhpClientBundle\DependencyInjection\Compiler\RequestCompilerPass;
 use Elastification\Bundle\ElastificationPhpClientBundle\DependencyInjection\Compiler\TransportCompilerPass;
 use Elastification\Client\Serializer\JmsSerializer;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
