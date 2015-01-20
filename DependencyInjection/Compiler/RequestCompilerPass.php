@@ -37,7 +37,7 @@ class RequestCompilerPass implements CompilerPassInterface
             if(true === $config['replace_version_of_tagged_requests']) {
                 $taggedRequestDef = $container->getDefinition($serviceId);
                 $class = $taggedRequestDef->getClass();
-                if(preg_match('/\\\\(V.*x)\\\\/', $class, $requestVersion)) {
+                if(preg_match('/\\\\(V\d*x)\\\\/', $class, $requestVersion)) {
 
                     if($config['elasticsearch_version'] != $requestVersion[1]) {
                         $newClass = str_replace(
