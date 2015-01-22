@@ -64,6 +64,7 @@ Jms Serializer Document Service Id: **elastification_php_client.serializer.jms.d
 ### Repositories
 Document Repository Serivce Id: **elastification_php_client.repository.document**
 Search Repository Serivce Id: **elastification_php_client.repository.search**
+Index Repository Serivce Id: **elastification_php_client.index.search**
 
 ### Tagged request
 If you want to register request services you can tag them with: **elastification_php_client.request**
@@ -111,7 +112,26 @@ This code is an example that can be performed within an action of a controller.
     $docRepo = $this->get('elastification_php_client.repository.document');
 
     var_dump($docRepo->get('my-index', 'my-type', 'yourDocumentId'));
+    
+### Examples for Index Repository
 
+Checks if an index exists
+This code is an example that can be performed within an action of a controller.
+
+```php
+    /** @var IndexRepositoryInterface $indexRepo */
+    $indexRepo = $this->get('elastification_php_client.repository.index');
+    var_dump($indexRepo->exists('my-index'));
+```
+
+Creates an index
+This code is an example that can be performed within an action of a controller.`
+
+```php
+    /** @var IndexRepositoryInterface $indexRepo */
+    $indexRepo = $this->get('elastification_php_client.repository.index');
+    var_dump($indexRepo->create('my-index'));
+```
 ### Example for simple search query with native serializer and no preconfigured requests
 
 This code is an example that can be performed within an action of a controller.
