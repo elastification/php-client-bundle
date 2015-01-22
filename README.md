@@ -58,20 +58,28 @@ elastification_php_client:
 
 The registered DIC service id for the client is **elastification_php_client**
 
+
 ### Serializers
 
 Native Serializer Service Id: **elastification_php_client.serializer.native**
+
 Jms Serializer Search Service Id: **elastification_php_client.serializer.jms.search**
+
 Jms Serializer Document Service Id: **elastification_php_client.serializer.jms.document**
+
 
 ### Repositories
 
 Document Repository Serivce Id: **elastification_php_client.repository.document**
+
 Search Repository Serivce Id: **elastification_php_client.repository.search**
+
 Index Repository Serivce Id: **elastification_php_client.repository.index**
+
 
 ### Tagged request
 If you want to register request services you can tag them with: **elastification_php_client.request**
+
 
 ---
 
