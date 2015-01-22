@@ -37,7 +37,7 @@ In your *app/config/AppHernel.php* file you should activate the bundle by adding
 ### App Config
 
 In your app/config.yml or environment based you can add params (full config example):
-    
+```yml
     elastification_php_client:
       host: 127.0.0.1
       port: 9200
@@ -49,7 +49,7 @@ In your app/config.yml or environment based you can add params (full config exam
       profiler_enabled: true
       jms_serializer_class_map:
           - {index: my-index, type: my-type, class: AppBundle\Entity\MyEntity}
-      
+```
 ---
 
 ## DIC
@@ -87,6 +87,7 @@ For all examples should create some sample data in your elasticsearch.
 Performs a simple search.
 This code is an example that can be performed within an action of a controller.
 
+```php
     /** @var SearchRepositoryInterface $searchRepo */
     $searchRepo = $this->get('elastification_php_client.repository.search');
     
@@ -102,16 +103,19 @@ This code is an example that can be performed within an action of a controller.
     
     $searchRepo->search('my-index', 'my-type', $query);
     var_dump($response->getHits());
-    
+```
+
 ### Example for Document Repository
 
 Gets a single document by id.
 This code is an example that can be performed within an action of a controller.
 
+```php
     /** @var DocumentRepositoryInterface $docRepo */
     $docRepo = $this->get('elastification_php_client.repository.document');
 
     var_dump($docRepo->get('my-index', 'my-type', 'yourDocumentId'));
+```
     
 ### Examples for Index Repository
 
@@ -136,6 +140,7 @@ This code is an example that can be performed within an action of a controller.`
 
 This code is an example that can be performed within an action of a controller.
 
+```php
     /** @var Client $client */
     $client = $this->get('elastification_php_client');
 
@@ -144,27 +149,31 @@ This code is an example that can be performed within an action of a controller.
     //get the raw deserialized data
     var_dump($response->getData()->getGatewayValue());
     //for grabbing into the result do: $response->getData()['hits']
+```
 
 ### Example for tagging request services and using the request manager
  
 Here is an example of a tagged request as service. The id parameter is optional. If this is not set, the request service id will be used.
 If the config parameter replace_version_of_tagged_requests is set to true. All registered requests will be parsed and set to the configured version.
 
+```php
     request.getdocument:
         class: "Elastification\Client\Request\V090x\GetDocumentRequest"g
         arguments: ["my-index", "my-type", @elastification_php_client.serializer.native]
         public: false
         tags:
           - { name: elastification_php_client.request, id: get.service.text }
-          
+```
+    
 Using a registered request and perform a request.
 This code is an example that can be performed within an action of a controller.
 
+```php
     $request = $client->getRequest('get.service.text');
     $request->setId('yourDocumentId');
     $response = $client->send($request);
     var_dump($response->getData()->getGatewayValue());
- 
+``` 
 ---
 
 ## ToDo
