@@ -49,7 +49,8 @@ elastification_php_client:
   profiler_enabled: true
   jms_serializer_class_map:
       - {index: my-index, type: my-type, class: AppBundle\Entity\MyEntity}
-``
+```
+
 ---
 
 ## DIC
