@@ -1,5 +1,6 @@
 # Elastification Php Client Bundle
-[![Build Status](https://travis-ci.org/elastification/php-client.svg?branch=master)](https://travis-ci.org/elastification/php-client-bundle)
+[![Build Status](https://travis-ci.org/elastification/php-client-bundle.svg?branch=master)](https://travis-ci.org/elastification/php-client-bundle)
+
 
 ---
 
