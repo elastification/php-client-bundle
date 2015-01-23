@@ -44,7 +44,9 @@ elastification_php_client:
   port: 9200
   protocol: http # http/thrift
   elasticsearch_version: 1.4.1
-  repository_serializer_dic_id: elastification_php_client.serializer.native #default: elastification_php_client.serializer.native
+  search_repository_serializer_dic_id: elastification_php_client.serializer.native #default: elastification_php_client.serializer.native
+  index_repository_serializer_dic_id: elastification_php_client.serializer.native #default: elastification_php_client.serializer.native
+  document_repository_serializer_dic_id: elastification_php_client.serializer.native #default: elastification_php_client.serializer.native
   replace_version_of_tagged_requests: true #default: false
   logging_enabled: true
   profiler_enabled: true

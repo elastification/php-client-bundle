@@ -32,6 +32,7 @@ class RepositoryCompilerPass implements CompilerPassInterface
         $classMapDef = $this->createClassMapDefinition($container, $config);
         $this->modifyDocumentDefinition($container, $config, $classMapDef);
         $this->modifySearchDefinition($container, $config, $classMapDef);
+        $this->modifyIndexDefinition($container, $config, $classMapDef);
     }
 
     /**
@@ -66,8 +67,8 @@ class RepositoryCompilerPass implements CompilerPassInterface
     {
         $documentDef = $container->getDefinition('elastification_php_client.repository.document');
 
-        if(null !== $config['repository_serializer_dic_id']) {
-            $documentDef->replaceArgument(1, new Reference($config['repository_serializer_dic_id']));
+        if(null !== $config['document_repository_serializer_dic_id']) {
+            $documentDef->replaceArgument(1, new Reference($config['document_repository_serializer_dic_id']));
         }
 
         $documentDef->addArgument($classMapDef);
@@ -85,8 +86,27 @@ class RepositoryCompilerPass implements CompilerPassInterface
     {
         $searchDef = $container->getDefinition('elastification_php_client.repository.search');
 
-        if(null !== $config['repository_serializer_dic_id']) {
-            $searchDef->replaceArgument(1, new Reference($config['repository_serializer_dic_id']));
+        if(null !== $config['search_repository_serializer_dic_id']) {
+            $searchDef->replaceArgument(1, new Reference($config['search_repository_serializer_dic_id']));
+        }
+
+        $searchDef->addArgument($classMapDef);
+    }
+
+    /**
+     * modifies the arguments of the search repository service definition
+     *
+     * @param ContainerBuilder $container
+     * @param array $config
+     * @param Definition $classMapDef
+     * @author Daniel Wendlandt
+     */
+    private function modifyIndexDefinition(ContainerBuilder $container, array $config, Definition $classMapDef)
+    {
+        $searchDef = $container->getDefinition('elastification_php_client.repository.index');
+
+        if(null !== $config['index_repository_serializer_dic_id']) {
+            $searchDef->replaceArgument(1, new Reference($config['index_repository_serializer_dic_id']));
         }
 
         $searchDef->addArgument($classMapDef);
