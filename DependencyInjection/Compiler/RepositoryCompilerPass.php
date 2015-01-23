@@ -12,7 +12,7 @@ use Elastification\Bundle\ElastificationPhpClientBundle\DependencyInjection\Elas
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\Validator\Tests\Fixtures\Reference;
+use Symfony\Component\DependencyInjection\Reference;
 
 class RepositoryCompilerPass implements CompilerPassInterface
 {
