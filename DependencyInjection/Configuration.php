@@ -51,7 +51,15 @@ class Configuration implements ConfigurationInterface
                     ->defaultNull()
                 ->end()
 
-                ->scalarNode('repository_serializer_dic_id')
+                ->scalarNode('search_repository_serializer_dic_id')
+                    ->defaultNull()
+                ->end()
+
+                ->scalarNode('index_repository_serializer_dic_id')
+                    ->defaultNull()
+                ->end()
+
+                ->scalarNode('document_repository_serializer_dic_id')
                     ->defaultNull()
                 ->end()
 
