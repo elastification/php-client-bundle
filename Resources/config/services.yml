@@ -2,6 +2,7 @@ parameters:
     elastification_php_client.transport.http.type.class: GuzzleHttp\Client
     elastification_php_client.transport.http.class: Elastification\Client\Transport\HttpGuzzle\GuzzleTransport
     elastification_php_client.transport.thrift.class: Elastification\Client\Transport\Thrift\ThriftTransport
+    elastification_php_client.transport.thrift.type.class: Elasticsearch\RestClient
     elastification_php_client.requestmanager.class: Elastification\Client\Request\RequestManager
     elastification_php_client.serializer.native.class: Elastification\Client\Serializer\NativeJsonSerializer
 
