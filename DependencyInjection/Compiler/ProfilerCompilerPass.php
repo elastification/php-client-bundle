@@ -45,15 +45,16 @@ class ProfilerCompilerPass implements CompilerPassInterface
 
         } else {
 
-            $sfProfilerDef = $container->getDefinition('profiler');
-            $sfProfilerMethodCalls = $sfProfilerDef->getMethodCalls();
-            foreach($sfProfilerMethodCalls as $sfProfilerMethodCallsIndex => $sfProfilerMethodCall) {
-                if('elastification_php_client.datacollector' == $sfProfilerMethodCall[1][0]->__toString()) {
-                    unset($sfProfilerMethodCalls[$sfProfilerMethodCallsIndex]);
+            if($container->hasDefinition('profiler')) {
+                $sfProfilerDef = $container->getDefinition('profiler');
+                $sfProfilerMethodCalls = $sfProfilerDef->getMethodCalls();
+                foreach($sfProfilerMethodCalls as $sfProfilerMethodCallsIndex => $sfProfilerMethodCall) {
+                    if('elastification_php_client.datacollector' == $sfProfilerMethodCall[1][0]->__toString()) {
+                        unset($sfProfilerMethodCalls[$sfProfilerMethodCallsIndex]);
+                    }
                 }
+                $sfProfilerDef->setMethodCalls($sfProfilerMethodCalls);
             }
-            $sfProfilerDef->setMethodCalls($sfProfilerMethodCalls);
-
 
             $container->removeDefinition(ElastificationPhpClientExtension::SERVICE_CLIENT_PROFILER_KEY);
             $container->removeDefinition('elastification_php_client.datacollector');
