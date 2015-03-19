@@ -47,9 +47,10 @@ class TransportCompilerPass implements CompilerPassInterface
 
         switch($config['protocol']) {
             case 'thrift':
-                //todo implement factory here
                 $transportTypeDef->setClass(
                     $container->getParameter('elastification_php_client.transport.thrift.type.class'));
+                $transportTypeDef->setFactory(['Elastification\Client\Transport\Thrift\ThriftTransportConnectionFactory', 'factory']);
+                $transportTypeDef->setArguments([$config['host'], $config['port']]);
                 break;
 
             default:
