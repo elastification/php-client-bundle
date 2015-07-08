@@ -67,23 +67,36 @@ class ProfilerClient implements ClientInterface
 
             $response = $this->client->send($request);
 
-            $this->dataCollector->add(
-                ElasticsearchDataCollector::TYPE_SUCCESS,
-                (microtime(true) - $timeTaken) * 1000,
-                $request,
-                $response);
+            if(null !== $this->dataCollector) {
+                $this->dataCollector->add(
+                    ElasticsearchDataCollector::TYPE_SUCCESS,
+                    (microtime(true) - $timeTaken) * 1000,
+                    $request,
+                    $response);
+            }
 
             return $response;
         } catch(ClientException $exception) {
-            $this->dataCollector->add(
-                ElasticsearchDataCollector::TYPE_ERROR,
-                (microtime(true) - $timeTaken) * 1000,
-                $request);
+            if(null !== $this->dataCollector) {
+                $this->dataCollector->add(
+                    ElasticsearchDataCollector::TYPE_ERROR,
+                    (microtime(true) - $timeTaken) * 1000,
+                    $request);
+            }
 
             throw $exception;
         }
     }
 
+    /**
+     * Setter for dataCollector. It also can be null.
+     *
+     * @param ElasticsearchDataCollector $dataCollector
+     */
+    public function setDataCollector(ElasticsearchDataCollector $dataCollector = null)
+    {
+        $this->dataCollector = $dataCollector;
+    }
 
     /**
      * @inheritdoc

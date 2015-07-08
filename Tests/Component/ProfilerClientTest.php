@@ -119,4 +119,57 @@ class ProfilerClientTest extends \PHPUnit_Framework_TestCase
 
         $this->fail('No ClientException thrown');
     }
+
+    public function testSendSetDataCollectorToNull()
+    {
+        $request = $this->getMockBuilder('Elastification\Client\Request\RequestInterface')->getMock();
+        $response = $this->getMockBuilder('Elastification\Client\Response\ResponseInterface')->getMock();
+
+        $this->dataCollector
+            ->expects($this->never())
+            ->method('add');
+
+        $this->client
+            ->expects($this->once())
+            ->method('send')
+            ->with($this->equalTo($request))
+            ->willReturn($response);
+
+        $this->profilerClient->setDataCollector(null);
+
+        $result = $this->profilerClient->send($request);
+        $this->assertEquals($response, $result);
+    }
+
+    public function testSendExceptionSetDataCollectorToNull()
+    {
+        $request = $this->getMockBuilder('Elastification\Client\Request\RequestInterface')->getMock();
+
+        $this->dataCollector
+            ->expects($this->never())
+            ->method('add');
+
+        $exception = new ClientException();
+
+        $this->client
+            ->expects($this->once())
+            ->method('send')
+            ->with($this->equalTo($request))
+            ->willThrowException($exception);
+
+        $this->profilerClient->setDataCollector(null);
+
+        try {
+
+            $this->profilerClient->send($request);
+
+        } catch(ClientException $clientException) {
+
+            $this->assertSame($exception, $clientException);
+            return;
+
+        }
+
+        $this->fail('No ClientException thrown');
+    }
 }
