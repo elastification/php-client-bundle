@@ -58,7 +58,7 @@ class TransportCompilerPass implements CompilerPassInterface
                     $container->getParameter('elastification_php_client.transport.http.type.class'));
 
                 $baseUrl = 'http://' . $config['host'] . ':' . $config['port'] . '/';
-                $transportTypeDef->setArguments(array(array('base_url' => $baseUrl)));
+                $transportTypeDef->setArguments(array(array('base_uri' => $baseUrl)));
                 break;
         }
 
