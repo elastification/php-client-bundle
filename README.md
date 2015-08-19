@@ -17,7 +17,7 @@ Required in *composer.json*
    
 You have choose the right package for your transport. If you do not have installed thrift you should use guzzle
 
-  ```"guzzlehttp/guzzle": "~4.2"```
+  ```"guzzlehttp/guzzle": "<7.0"```
   
   
 For Thrift transport
