@@ -36,12 +36,12 @@ services:
 
     elastification_php_client.logger:
          class: "%elastification_php_client.logger.class%"
-         arguments: [@elastification_php_client.client, @logger]
+         arguments: ["@elastification_php_client.client", "@logger"]
          public: false
 
     elastification_php_client.profiler:
          class: "%elastification_php_client.profiler.class%"
-         arguments: [@elastification_php_client, @elastification_php_client.datacollector]
+         arguments: ["@elastification_php_client", "@elastification_php_client.datacollector"]
          public: false
 
     elastification_php_client.serializer.jms.sourcesubscribing:
@@ -51,7 +51,7 @@ services:
 
     elastification_php_client.serializer.jms.prototype:
          class: "%elastification_php_client.serializer.jms.class%"
-         arguments: [@jms_serializer]
+         arguments: ["@jms_serializer"]
          public: false
 
     elastification_php_client.serializer.native:
@@ -60,15 +60,15 @@ services:
 
     elastification_php_client.repository.document:
          class: "%elastification_php_client.repository.document.class%"
-         arguments: [@elastification_php_client, @elastification_php_client.serializer.native]
+         arguments: ["@elastification_php_client", "@elastification_php_client.serializer.native"]
          public: true
 
     elastification_php_client.repository.search:
          class: "%elastification_php_client.repository.search.class%"
-         arguments: [@elastification_php_client, @elastification_php_client.serializer.native]
+         arguments: ["@elastification_php_client", "@elastification_php_client.serializer.native"]
          public: true
 
     elastification_php_client.repository.index:
          class: "%elastification_php_client.repository.index.class%"
-         arguments: [@elastification_php_client, @elastification_php_client.serializer.native]
+         arguments: ["@elastification_php_client", "@elastification_php_client.serializer.native"]
          public: true
