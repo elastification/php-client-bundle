@@ -49,7 +49,8 @@ class ProfilerCompilerPass implements CompilerPassInterface
                 $sfProfilerDef = $container->getDefinition('profiler');
                 $sfProfilerMethodCalls = $sfProfilerDef->getMethodCalls();
                 foreach($sfProfilerMethodCalls as $sfProfilerMethodCallsIndex => $sfProfilerMethodCall) {
-                    if('elastification_php_client.datacollector' == $sfProfilerMethodCall[1][0]->__toString()) {
+                  if(isset($sfProfilerMethodCall[1][0]) &&
+                      'elastification_php_client.datacollector' == (string) $sfProfilerMethodCall[1][0]) {
                         unset($sfProfilerMethodCalls[$sfProfilerMethodCallsIndex]);
                     }
                 }
