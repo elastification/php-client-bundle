@@ -10,6 +10,7 @@ parameters:
     elastification_php_client.logger.class: Elastification\Client\LoggerClient
     elastification_php_client.repository.document.class: Elastification\Client\Repository\DocumentRepository
     elastification_php_client.repository.search.class: Elastification\Client\Repository\SearchRepository
+    elastification_php_client.repository.cat.class: Elastification\Client\Repository\CatRepository
     elastification_php_client.repository.index.class: Elastification\Client\Repository\IndexRepository
     elastification_php_client.repository.classmap.class: Elastification\Client\Repository\RepositoryClassMap
     elastification_php_client.datacollector.class: Elastification\Bundle\ElastificationPhpClientBundle\DataCollector\ElasticsearchDataCollector
@@ -70,5 +71,10 @@ services:
 
     elastification_php_client.repository.index:
          class: "%elastification_php_client.repository.index.class%"
+         arguments: ["@elastification_php_client", "@elastification_php_client.serializer.native"]
+         public: true
+
+    elastification_php_client.repository.cat:
+         class: "%elastification_php_client.repository.cat.class%"
          arguments: ["@elastification_php_client", "@elastification_php_client.serializer.native"]
          public: true

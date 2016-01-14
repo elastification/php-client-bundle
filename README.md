@@ -78,6 +78,9 @@ Search Repository Serivce Id: **elastification_php_client.repository.search**
 
 Index Repository Serivce Id: **elastification_php_client.repository.index**
 
+Cat Repository Serivce Id: **elastification_php_client.repository.cat**
+
+
 
 ### Tagged request
 If you want to register request services you can tag them with: **elastification_php_client.request**
