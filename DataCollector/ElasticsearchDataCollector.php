@@ -8,6 +8,7 @@
 
 namespace Elastification\Bundle\ElastificationPhpClientBundle\DataCollector;
 
+use Elastification\Bundle\ElastificationPhpClientBundle\DataCollector\Helper\DataSizeHelper;
 use Elastification\Client\Request\RequestInterface;
 use Elastification\Client\Response\ResponseInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -70,6 +71,7 @@ class ElasticsearchDataCollector extends DataCollector
         if(null !== $response) {
             $data['response'] = $response->getData()->getGatewayValue();
             $data['responseRaw'] = $response->getRawData();
+            $data['responseSize'] = DataSizeHelper::convert(mb_strlen($data['responseRaw']));
         }
 
         $this->data[] = $data;
@@ -111,6 +113,19 @@ class ElasticsearchDataCollector extends DataCollector
     public function getData()
     {
         return $this->data;
+    }
+
+    public function getGetTotalResponseSize()
+    {
+        $totalSize = 0;
+
+        foreach($this->data as $entry) {
+            if(isset($entry['responseRaw'])) {
+                $totalSize += mb_strlen($entry['responseRaw']);
+            }
+        }
+
+        return DataSizeHelper::convert($totalSize);
     }
 
     /**
