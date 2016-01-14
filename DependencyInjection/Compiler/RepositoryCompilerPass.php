@@ -9,6 +9,7 @@
 namespace Elastification\Bundle\ElastificationPhpClientBundle\DependencyInjection\Compiler;
 
 use Elastification\Bundle\ElastificationPhpClientBundle\DependencyInjection\ElastificationPhpClientExtension;
+use Elastification\Client\ClientVersionMapInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -33,6 +34,7 @@ class RepositoryCompilerPass implements CompilerPassInterface
         $this->modifyDocumentDefinition($container, $config, $classMapDef);
         $this->modifySearchDefinition($container, $config, $classMapDef);
         $this->modifyIndexDefinition($container, $config, $classMapDef);
+        $this->modifyCatDefinition($container, $config, $classMapDef);
     }
 
     /**
@@ -94,7 +96,7 @@ class RepositoryCompilerPass implements CompilerPassInterface
     }
 
     /**
-     * modifies the arguments of the search repository service definition
+     * modifies the arguments of the index repository service definition
      *
      * @param ContainerBuilder $container
      * @param array $config
@@ -104,6 +106,29 @@ class RepositoryCompilerPass implements CompilerPassInterface
     private function modifyIndexDefinition(ContainerBuilder $container, array $config, Definition $classMapDef)
     {
         $searchDef = $container->getDefinition('elastification_php_client.repository.index');
+
+        if(null !== $config['index_repository_serializer_dic_id']) {
+            $searchDef->replaceArgument(1, new Reference($config['index_repository_serializer_dic_id']));
+        }
+
+        $searchDef->addArgument($classMapDef);
+    }
+
+    /**
+     * modifies the arguments of the cat repository service definition
+     *
+     * @param ContainerBuilder $container
+     * @param array $config
+     * @param Definition $classMapDef
+     * @author Daniel Wendlandt
+     */
+    private function modifyCatDefinition(ContainerBuilder $container, array $config, Definition $classMapDef)
+    {
+        if(ClientVersionMapInterface::VERSION_V090X === $config['elasticsearch_version']) {
+            throw new \InvalidArgumentException(sprintf('The cat repository is not available for the configured elasticsearch version'));
+        }
+
+        $searchDef = $container->getDefinition('elastification_php_client.repository.cat');
 
         if(null !== $config['index_repository_serializer_dic_id']) {
             $searchDef->replaceArgument(1, new Reference($config['index_repository_serializer_dic_id']));
