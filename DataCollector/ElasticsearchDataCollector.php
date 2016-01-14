@@ -71,7 +71,9 @@ class ElasticsearchDataCollector extends DataCollector
         if(null !== $response) {
             $data['response'] = $response->getData()->getGatewayValue();
             $data['responseRaw'] = $response->getRawData();
-            $data['responseSize'] = DataSizeHelper::convert(mb_strlen($data['responseRaw']));
+
+            $size = mb_strlen($data['responseRaw']);
+            $data['responseSize'] = $size > 0 ? DataSizeHelper::convert($size) : $size;
         }
 
         $this->data[] = $data;
@@ -115,6 +117,11 @@ class ElasticsearchDataCollector extends DataCollector
         return $this->data;
     }
 
+    /**
+     * Calculates the total price
+     *
+     * @return string
+     */
     public function getGetTotalResponseSize()
     {
         $totalSize = 0;
@@ -125,7 +132,7 @@ class ElasticsearchDataCollector extends DataCollector
             }
         }
 
-        return DataSizeHelper::convert($totalSize);
+        return $totalSize > 0 ? DataSizeHelper::convert($totalSize) : $totalSize;
     }
 
     /**
