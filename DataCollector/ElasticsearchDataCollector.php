@@ -61,7 +61,8 @@ class ElasticsearchDataCollector extends DataCollector
             'action' => $request->getAction(),
             'responseClass' => $request->getSupportedClass(),
             'bodyRaw' => $request->getBody(),
-            'config' => $this->config
+            'config' => $this->config,
+            'responseSize' => null
         );
 
         if(null !== $data['bodyRaw'] && is_string($data['bodyRaw'])) {
